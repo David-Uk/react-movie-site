@@ -44,7 +44,7 @@ export default class Home extends Component {
         let endpoint = '';
         this.setState({ loading: true });
         if (this.state.searchTerm === '') {
-            endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${this.state.curreentPage + 1}`;
+            endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${this.state.currentPage + 1}`;
         }
         else {
             endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${this.state.currentPage + 1}`
@@ -59,7 +59,7 @@ export default class Home extends Component {
                 heroImage: this.state.heroImage || result.results[0],
                 loading: false,
                 currentPage: result.page,
-                totalPage: result.total_pages
+                totalPages: result.total_pages
             }))
             .catch(error => console.log(error))
     }
@@ -89,9 +89,10 @@ export default class Home extends Component {
                         })}
                     </FourColGrid>
                     {this.state.loading ? <Spinner /> : null}
-                    {(this.state.currentPage <= this.state.totalPage && !this.state.loading) ?
+                    {(this.state.currentPage <= this.state.totalPages && !this.state.loading) ?
                         <LoadMoreBtn text="Load More" onClick={this.loadMoreItems} />
-                        : null}
+                        : null
+                    }
                 </div>
             </div >
         )
