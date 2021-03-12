@@ -3,7 +3,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from '..
 import HeroImage from '../HeroImage/HeroImage'
 import Searchbar from '../SearchBar/Searchbar'
 import FourColGrid from '../FourColGrid/FourColGrid'
-/* import MovieThumb from '../MovieThumb/MovieThumb' */
+import MovieThumb from '../MovieThumb/MovieThumb'
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
 import Spinner from '../Spinner/Spinner'
 import './Home.css'
@@ -75,10 +75,25 @@ export default class Home extends Component {
                         <Searchbar
                             callback={this.searchItem} />
                     </div> : null}
-                <FourColGrid />
-                <Spinner />
-                <LoadMoreBtn />
-            </div>
+                <div className="rmdb-home-grid">
+                    <FourColGrid
+                        header={this.state.searchTerm ? 'Search Result' : 'Popular Movies'}
+                        loading={this.state.loading}>
+                        {this.state.movies.map((element, i) => {
+                            return <MovieThumb
+                                key={i}
+                                clickable={true}
+                                image={element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : './images/no_image.jpg'}
+                                movieId={element.id}
+                                movieName={element.original_title} />
+                        })}
+                    </FourColGrid>
+                    {this.state.loading ? <Spinner /> : null}
+                    {(this.state.currentPage <= this.state.totalPage && !this.state.loading) ?
+                        <LoadMoreBtn text="Load More" onClick={this.loadMoreItems} />
+                        : null}
+                </div>
+            </div >
         )
     }
 }

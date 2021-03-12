@@ -1,10 +1,10 @@
 import React from 'react'
 import './MovieThumb.css'
 
-export default function MovieThumb() {
+export default function MovieThumb(props) {
     return (
-        <div>
-
+        <div className="rmdb-moviethumb">
+            <img src={props.image} alt="movie thumbnail" />
         </div>
     )
 }

@@ -1,10 +1,16 @@
-import React from 'react'
-import './LoadMoreBtn.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './LoadMoreBtn.css';
 
-export default function LoadMoreBtn() {
-    return (
-        <div>
+const LoadMoreBtn = ({ text, onClick }) => (
+    <div className="rmdb-loadmorebtn" onClick={onClick}>
+        <p>{text}</p>
+    </div>
+)
 
-        </div>
-    )
+LoadMoreBtn.propTypes = {
+    text: PropTypes.string,
+    onClick: PropTypes.func
 }
+
+export default LoadMoreBtn;
